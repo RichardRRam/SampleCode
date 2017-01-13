@@ -1,0 +1,260 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var receipt = GetReciepts();
+            decimal total = 0;
+            int cashCount = 0;
+            int cardCount = 0;
+
+            DateTime start = new DateTime(2017, 1, 01);
+            DateTime end = new DateTime(2017, 1, 31);
+
+
+            var dateReciept = GetRecieptsByDate(start, end);
+            var typeReciept = GetRecieptsByType("C");
+            var descRecieptO = GetRecieptsByDescription("O");
+            var descRecieptA = GetRecieptsByDescription("A");
+            var priceReciept = GetRecieptsByPrice((decimal)0.01,(decimal)10.00);
+
+
+            foreach (var item in receipt)
+            {
+                total += item.Price;
+                Debug.WriteLine(item.Description);
+                if (item.Type == "C")
+                {
+                    cashCount++;
+                }
+                else if (item.Type == "D")
+                {
+                    cardCount++;
+                }
+
+            }
+
+            Debug.WriteLine("All Entries in january: ");
+            foreach (var item1 in dateReciept)
+            {
+                Debug.WriteLine(item1.Created);
+            }
+
+            Debug.WriteLine("All Entries that used Cash: ");
+            foreach (var item2 in typeReciept)
+            {
+                Debug.WriteLine(item2.Type);
+            }
+
+            Debug.WriteLine("All Entries that went to O: ");
+            foreach (var item3 in descRecieptO)
+            {
+                Debug.WriteLine(item3.Description);
+            }
+
+            Debug.WriteLine("All Entries that went to A: ");
+            foreach (var item3 in descRecieptA)
+            {
+                Debug.WriteLine(item3.Description);
+            }
+
+            Debug.WriteLine("All Entries less than 10$: ");
+            foreach (var item4 in priceReciept)
+            {
+                Debug.WriteLine(item4.Price);
+            }
+
+            Debug.WriteLine(total);
+            Debug.WriteLine(cashCount);
+            Debug.WriteLine(cardCount);
+
+        }
+
+        public static List<Models.Receipt> GetRecieptsByType(string type)
+        {
+            // Get all receipts
+            var receipts = GetReciepts();
+
+            // Filter receipts by type
+            var results = (
+                from r in receipts
+                where r.Type == type
+                select r)
+                .ToList();
+
+            return results;
+        }
+
+        public static List<Models.Receipt> GetRecieptsByDate(DateTime startDate, DateTime endDate)
+        {
+            // Get all receipts
+            var receipts = GetReciepts();
+
+            // Filter receipts by type
+            var results = (
+                from r in receipts
+                where r.Created >= startDate && r.Created <= endDate
+                select r)
+                .ToList();
+
+            return results;
+        }
+
+        public static List<Models.Receipt> GetRecieptsByPrice(decimal min, decimal max)
+        {
+            // Get all receipts
+            var receipts = GetReciepts();
+
+            // Filter receipts by type
+            var results = (
+                from r in receipts
+                where r.Price >= min && r.Price <= max
+                select r)
+                .ToList();
+
+            return results;
+        }
+
+        public static List<Models.Receipt> GetRecieptsByDescription(string desc)
+        {
+            // Get all receipts
+            var receipts = GetReciepts();
+
+            // Filter receipts by type
+            var results = (
+                from r in receipts
+                where r.Description.Contains(desc)
+                //where r.Description == desc
+                select r)
+                .ToList();
+
+            return results;
+        }
+
+        public static List<Models.Receipt> GetReciepts()
+        {
+            var receipts = new List<Models.Receipt>();
+
+            var r1 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)8.52,
+                Type = "C",
+                Description = "IHOP"
+            };
+
+
+            var r2 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)4.73,
+                Type = "D",
+                Description = "FOOD"
+            };
+
+
+            var r3 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)10.56,
+                Type = "C",
+                Description = "JACK"
+            };
+
+
+            var r4 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)3.02,
+                Type = "D",
+                Description = "TACO"
+            };
+
+            var r5 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)32.09,
+                Type = "D",
+                Description = "COSMOS"
+            };
+
+
+            var r6 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)2.37,
+                Type = "C",
+                Description = "FOOD"
+            };
+
+
+            var r7 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)11.34,
+                Type = "C",
+                Description = "WINGSTOP"
+            };
+
+
+            var r8 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)5.73,
+                Type = "C",
+                Description = "PANDA"
+            };
+
+
+            var r9 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)30,
+                Type = "D",
+                Description = "GAS"
+            };
+          
+
+            var r10 = new Models.Receipt
+            {
+                Created = DateTime.Now,
+                Price = (decimal)4.90,
+                Type = "C",
+                Description = "STARBUCKS"
+            };
+
+            receipts.Add(r1);
+            receipts.Add(r2);
+            receipts.Add(r3);
+            receipts.Add(r4);
+            receipts.Add(r5);
+            receipts.Add(r6);
+            receipts.Add(r7);
+            receipts.Add(r8);
+            receipts.Add(r9);
+            receipts.Add(r10);
+
+
+            return receipts;
+        }
+
+        public class Models {
+
+                public class Receipt {
+                public DateTime Created { get; set; }
+                public decimal Price { get; set; }
+                public string Type { get; set; }
+                public string Description { get; set; }
+            }
+
+        }
+    }
+}
