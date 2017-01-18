@@ -1,0 +1,104 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Web.Controllers
+{
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+            var reciepts = new List<Models.Receipt>();
+            return View(reciepts);
+        }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection form)
+        {
+            string payType = "";
+            decimal price = form["price"].ToDecimalOrDefault();
+            string description = form["description"].ToStringOrDefault().Trim().ToLower();
+            int paymenttypeId = form["paymenttypeId"].ToInt32OrDefault();
+            DateTime date = form["date"].ToDateTimeOrDefault();
+
+            if(paymenttypeId == 1)
+            {
+                payType = "$$";
+            }
+            else if(paymenttypeId == 2)
+            {
+                payType = "[]";
+            }
+
+            var reciepts = new List<Models.Receipt>();
+
+            var r1 = new Models.Receipt()
+            {
+                Created = date,
+                Price = price,
+                Type = payType,
+                Description = description
+            };
+
+            reciepts.Add(r1);
+
+            return View(reciepts);
+        }
+
+     
+
+
+        public ActionResult About()
+        {
+            var app = new List<Models.Application>();
+            return View(app);
+        }
+
+        [HttpPost]
+        public ActionResult About(FormCollection form)
+        {
+            string name = form["name"].ToStringOrDefault().Trim().ToLower();
+            string reason = form["reason"].ToStringOrDefault().Trim().ToLower();
+
+            var app = new List<Models.Application>();
+
+            var app1 = new Models.Application()
+            {
+                Name = name,
+                Reason = reason
+            };
+
+            app.Add(app1);
+
+            return View(app);
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+       
+        public class Models
+        {
+
+            public class Receipt
+            {
+                public DateTime Created { get; set; }
+                public decimal Price { get; set; }
+                public string Type { get; set; }
+                public string Description { get; set; }
+            }
+
+            public class Application
+            {
+                public string Name { get; set; }
+                public string Reason { get; set; }
+            }
+        }
+    }
+}
