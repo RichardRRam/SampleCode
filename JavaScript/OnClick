@@ -1,0 +1,13 @@
+ 
+ 
+ 
+ //Create Class for "." propertie because It must be a unique Buttton
+ $(".btnSave").click(function (e) {
+                e.preventDefault();
+                
+                //Gets the value of the Closest Div
+                var catId = $(this).closest("div").attr("data-id");
+
+                console.log(catId);
+
+            });
