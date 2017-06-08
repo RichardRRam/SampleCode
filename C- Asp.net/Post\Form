@@ -1,25 +1,40 @@
- protected void Page_Load(object sender, EventArgs e)
+
+        #region Properties
+        public List<DAL.Category> AllCategories;
+        #endregion
+
+        protected void Page_Load(object sender, EventArgs e)
         {
             Guid clientGuid = Request.QueryString["id"].ToGuidOrDefault();
-         
+            int clientId = BLL.Presenters.ClientsPresenter.GetClientIDByGUID(clientGuid);
+
             if (Request.HttpMethod == "POST")
             {
                 string catergoryName = Request.Form["newCat"].ToStringOrDefault();
                 int catId = Request.Form["catId"].ToInt32OrDefault();
+                string command = Request.Form["command"].ToStringOrDefault();
+                string userInputCatName = Request.Form["userInputCatName"].ToStringOrDefault();
 
+                if (command.Equals("save"))
+                {
+                    CategoryController.UpdateCategory(catId, userInputCatName, clientId);
+                }
+
+                if (command.Equals("delete"))
+                {
+                    CategoryController.DeleteCategory(catId, clientId);
+                    Response.Redirect(Request.Url.ToString(), true);
+                }
 
                 if (catergoryName.IsNotEmpty())
-                {
-                    int clientId = BLL.Presenters.ClientsPresenter.GetClientIDByGUID(clientGuid);
+                {                  
                     CategoryController.AddCategory(catergoryName, clientId);
                 }
 
                 Response.Redirect("/Manager/Categories.aspx?id="+ clientGuid);
             }
 
-          
-            
-             
+                
                 List<DAL.Category> categories = CategoryPresenter.GetByClientGuid(clientGuid);
 
                 AllCategories = categories;
