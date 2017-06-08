@@ -1,0 +1,3 @@
+        #region Properties
+        public List<> ALLNAME;
+        #endregion
