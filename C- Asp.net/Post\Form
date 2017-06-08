@@ -1,0 +1,29 @@
+ protected void Page_Load(object sender, EventArgs e)
+        {
+            Guid clientGuid = Request.QueryString["id"].ToGuidOrDefault();
+         
+            if (Request.HttpMethod == "POST")
+            {
+                string catergoryName = Request.Form["newCat"].ToStringOrDefault();
+                int catId = Request.Form["catId"].ToInt32OrDefault();
+
+
+                if (catergoryName.IsNotEmpty())
+                {
+                    int clientId = BLL.Presenters.ClientsPresenter.GetClientIDByGUID(clientGuid);
+                    CategoryController.AddCategory(catergoryName, clientId);
+                }
+
+                Response.Redirect("/Manager/Categories.aspx?id="+ clientGuid);
+            }
+
+          
+            
+             
+                List<DAL.Category> categories = CategoryPresenter.GetByClientGuid(clientGuid);
+
+                AllCategories = categories;
+                return;
+            
+
+        }
