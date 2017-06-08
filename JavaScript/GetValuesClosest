@@ -1,0 +1,33 @@
+            //Class Name
+            $(".btnSave").click(function (e) {
+                e.preventDefault();
+                
+                //Closest Div is better than using parent Div
+                var catId = $(this).closest("div").attr("data-id");
+                //String
+                var command = "save";
+                //Getting value of a input field byId 
+                var catName = document.getElementById(catId).value;
+
+                //Assining values to hidden Fields to pass back to code behind form Request
+                $('#userInputCatName').val(catName);
+                $('#catId').val(catId);
+                $('#command').val(command);
+
+                //Submit Form
+                $('form').submit();
+
+            });
+
+            $(".btnDel").click(function (e) {
+                e.preventDefault();
+
+                var catId = $(this).closest("div").attr("data-id");
+                var command = "delete";
+               
+                $('#catId').val(catId);
+                $('#command').val(command);
+
+                $('form').submit();
+
+            });
