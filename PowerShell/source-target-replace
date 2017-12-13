@@ -1,6 +1,6 @@
 Write-Host "Copying Files!"
 
-$startDir = 'C:\Users\Richard Ram\Downloads\wordpress-4.9.1\wordpress'
+$startDir = 'C:\Users\R\Downloads\wordpress-4.9.1\wordpress'
 $endDir = 'E:\Projects\WordpressScript\Test'
 
 function CopyFilesToFolder ($source, $target) {
@@ -41,6 +41,6 @@ function DeleteContentFolder ($wpDir) {
 }
 
 
-$rootdir = 'C:\Users\Richard Ram\Downloads\wordpress-4.9.1\wordpress'
+$rootdir = 'C:\Users\R\Downloads\wordpress-4.9.1\wordpress'
 
 DeleteContentFolder $rootdir
