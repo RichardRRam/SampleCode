@@ -1,0 +1,46 @@
+Write-Host "Copying Files!"
+
+$startDir = 'C:\Users\Richard Ram\Downloads\wordpress-4.9.1\wordpress'
+$endDir = 'E:\Projects\WordpressScript\Test'
+
+function CopyFilesToFolder ($source, $target) {
+
+    $sourceItems = Get-ChildItem $source
+    $targetItems = Get-ChildItem $target
+
+    $sourceItems | ForEach-Object {
+     
+        Foreach($t in $targetItems)
+        {
+            if($t = $_.Name)
+            {
+                Write-Host "Contains" + $t
+                Remove-Item -Path ($target + "\" + $t) -Recurse 
+                break
+            }
+        }
+    
+         Copy-Item -Path $_.FullName -Destination $target -Recurse -Force
+    }
+}
+
+
+CopyFilesToFolder $startDir $endDir
+
+Write-Host "Finished"
+
+
+#Delete Content Folder Function
+
+#Write-Host "Deleting Content!"
+
+#Pass in the path to Core Download \wordpress-version\wordpress
+function DeleteContentFolder ($wpDir) {
+    
+    Remove-Item -Path ($wpDir + '\wp-content')
+}
+
+
+$rootdir = 'C:\Users\Richard Ram\Downloads\wordpress-4.9.1\wordpress'
+
+DeleteContentFolder $rootdir
