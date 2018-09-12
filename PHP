@@ -1,0 +1,9 @@
+      //ACF Image: 
+      
+      $image_obj = get_field('banner-image',2);
+     
+      $image_size = 'post-thumbnail';
+
+      $image_url = $image_obj['sizes'][$image_size];
+
+      echo ('<img src="' . $image_url . '" class="media-fluid img-zoom">');
