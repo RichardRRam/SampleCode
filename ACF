@@ -1,0 +1,64 @@
+<?php
+$size = 'thumbnail';
+$size2 = "large";
+?>
+
+
+<?php
+// check if the repeater field has rows of data
+if( have_rows('event') ):
+    // loop through the rows of data
+   while ( have_rows('event') ) : the_row();  
+       $imageData = get_sub_field('image');
+       $thumb = $imageData['sizes'][ $size ];     
+       ?>
+       <div class='row'>
+           <div class="col-md-5" style="padding-left: 50px;">
+               <h1><?php the_sub_field('title'); ?></h1>
+               <p><?php  the_sub_field('description'); ?></p>
+               
+           </div>
+           <div class="col-md-7">
+               <div class="float-left">
+                   <img src="<?php echo $thumb  ?>" alt="Responsive image">
+               </div>
+           </div>
+       </div>
+     
+   <?php     
+   endwhile;
+endif;
+
+if( have_rows('block') ):
+    // loop through the rows of data
+   while ( have_rows('block') ) : the_row();  
+       $imageDataBefore = get_sub_field('before_image');
+       $imageDataAfter = get_sub_field('after_image');
+       $thumbBefore = $imageDataBefore['sizes'][ $size2 ];  
+       $thumbAfter = $imageDataAfter['sizes'][ $size2 ];  
+       ?>
+       <div class='row'>
+
+           <div class="col-md-4">
+               <div class="float-left">
+                   <img src="<?php echo $thumbBefore  ?>" alt="Responsive image">
+                 
+               </div>
+           </div>
+
+           <div class="col-md-4" style="padding-left: 50px;">
+               <h1><?php the_sub_field('title'); ?></h1>
+           </div>
+
+           <div class="col-md-4">
+               <div class="float-left">
+                
+                   <img src="<?php echo $thumbAfter  ?>" alt="Responsive image">
+               </div>
+           </div>
+       </div>
+     
+   <?php     
+   endwhile;
+endif;
+?> 
