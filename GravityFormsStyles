@@ -1,0 +1,54 @@
+		<style type="text/css">
+body .gform_wrapper .gform_body .gform_fields .gfield input[type=text] 
+{ 
+	color: white;
+	background-color: black;
+    border-width: 0px;
+}
+
+body .gform_wrapper .gform_body .gform_fields .gfield select
+{ 
+	color: white;
+	background-color: black;
+    border-width: 0px;
+    margin-top: 12px;
+}
+
+body .gform_wrapper .gform_body .gform_fields .gfield input[type=email] 
+{ 
+	color: white;
+	background-color: black;
+    border-width: 0px;
+}
+body .gform_wrapper .gform_body .gform_fields .gfield input[type=tel] 
+{ 
+	color: white;
+	background-color: black;
+    border-width: 0px;
+}
+
+body .gform_wrapper
+{
+
+}
+
+body .gform_wrapper .gform_footer input.button,
+body .gform_wrapper .gform_footer input[type=submit]
+  {
+    color:black;
+    padding-top:4px;
+    padding-bottom:4px;
+    padding-left:10px;
+    padding-right:10px;
+    border: 1px solid rgba(114,114,114,0.4);
+    border-radius: 1px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 0 1px 0px rgba(114,114,114,0.3);
+    -moz-box-shadow: 0 1px 0px rgba(114,114,114,0.3);
+    -webkit-box-shadow: 0 1px 0px rgba(114,114,114,0.3);
+    background-color: #cf1212;
+    width: 98%;
+}
+
+		</style>
